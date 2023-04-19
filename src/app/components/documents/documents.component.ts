@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PDFDocument, StandardFonts, degrees, rgb } from 'pdf-lib'; // Importa StandardFonts
+import { PDFDocument, StandardFonts, degrees, rgb } from 'pdf-lib';
+
 
 
 @Component({
@@ -120,15 +121,16 @@ export class DocumentsComponent {
       // Get the width and height of the first page
       const { width, height } = firstPage.getSize()
 
-      // Draw a string of text diagonally across the first page
-      firstPage.drawText('This text was added with JavaScript!', {
-        x: 5,
-        y: height / 2 + 300,
-        size: 50,
-        font: helveticaFont,
-        color: rgb(0.95, 0.1, 0.1),
-        rotate: degrees(-45),
-      })
+      //creamos formulario
+      const form = pdfDoc.getForm()
+
+      // firstPage.drawText('Enter your favorite superhero:', { x: 10, y: 100, size: 20 })
+
+      
+      const superheroField = form.createTextField('favorite.superhero')
+        superheroField.addToPage(firstPage, { x: 120, y: 760, width: 100, height: 10  })
+
+
 
       // Serialize the PDFDocument to bytes (a Uint8Array)
       const pdfBytes = await pdfDoc.save()
