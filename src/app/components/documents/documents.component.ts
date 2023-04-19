@@ -1,19 +1,30 @@
-import { Component } from '@angular/core';
-import { PDFDocument, PDFPage } from 'pdf-lib';
+import { Component, OnInit } from '@angular/core';
+declare const window: any;
+const pdfjsLib = window['pdfjs-dist/build/pdf'];
 
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
-export class DocumentsComponent {
+export class DocumentsComponent implements OnInit{
 
-  async abrirPDF() {
-   // Obtener el archivo PDF desde la carpeta "assets"
-   const pdfBytes = await fetch('/assets/pdf/prueba.pdf').then(res => res.arrayBuffer());
+  extractedText: string = ''; // Asigna un valor inicial a la variable para evitar el error
 
-   // Abrir el archivo PDF en una nueva pestaña del navegador
-   const pdfDataUrl = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
-   window.open(pdfDataUrl, '_blank');
+  constructor() { }
+
+  async ngOnInit() {
+    // Cargar el archivo PDF y extraer el contenido de texto
+    const pdfUrl = '/assets/pdf/R30';
+    console.log(pdfUrl);
+    try {
+      const pdf = await pdfjsLib.getDocument(pdfUrl).promise;
+      const page = await pdf.getPage(1);
+      const textContent = await page.getTextContent(); // Utiliza la interfaz TextContent proporcionada por pdfjs-dist
+      this.extractedText = textContent.items.map((item: any) => item.str).join(' '); // Especificar el tipo de datos de item como any
+    } catch (error) {
+      console.error('Error al cargar el archivo PDF:', error);
+
+    }
   }
 }
