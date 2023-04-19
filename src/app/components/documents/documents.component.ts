@@ -126,10 +126,9 @@ export class DocumentsComponent {
 
       // firstPage.drawText('Enter your favorite superhero:', { x: 10, y: 100, size: 20 })
 
-      
-      const superheroField = form.createTextField('favorite.superhero')
-        superheroField.addToPage(firstPage, { x: 120, y: 760, width: 100, height: 10  })
 
+      const superheroField = form.createTextField('favorite.superhero')
+        superheroField.addToPage(firstPage, { x: 116, y: 758, width: 250, height: 15  })
 
 
       // Serialize the PDFDocument to bytes (a Uint8Array)
