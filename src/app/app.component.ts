@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PDFDocument, PDFField, PDFTextField, StandardFonts } from 'pdf-lib';
+import { PDFDocument, StandardFonts } from 'pdf-lib';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +11,24 @@ export class AppComponent {
 
   async habilitarEdicion() {
     try {
+      
       // Cargar el archivo PDF desde una URL o un archivo local
       const pdfBytes = await fetch('assets/pdf/prueba.pdf').then(res => res.arrayBuffer());
 
       // Crear un documento PDF a partir de los bytes cargados
       const pdfDoc = await PDFDocument.load(pdfBytes);
 
-      // Crear un campo de formulario de texto
-      const textField = pdfDoc.createTextField('miCampo');
-      textField.setText(this.nombre);
-      textField.updateAppearances();
+       // Add a blank page to the document
+      const page = pdfDoc.addPage([550, 150]);
 
       // Obtener el formulario del documento
       const form = pdfDoc.getForm();
 
-      // Agregar el campo de formulario al formulario
-      form.getFields().push(textField);
+
+      const nameField = form.createTextField('favorite.superhero');
+      nameField.setText('One Punch Man');
+      nameField.addToPage(page, { x: 55, y: 80 });
+
 
       // Guardar el documento modificado como bytes
       const pdfBytesModificado = await pdfDoc.save();

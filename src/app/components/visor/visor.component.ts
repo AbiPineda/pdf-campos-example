@@ -7,12 +7,12 @@ import { DomSanitizer } from '@angular/platform-browser'; // Importar desde @ang
   styleUrls: ['./visor.component.css']
 })
 export class VisorComponent implements OnInit {
-  pdfUrl: any; 
+  pdfUrl: any;
 
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    const pdfPath = 'assets/pdf/prueba.pdf'; // Ruta del archivo PDF dentro de tu proyecto
+    const pdfPath = 'assets/pdf/prueba.pdf'; 
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(pdfPath);
   }
 }
