@@ -10,7 +10,7 @@ import { VisorComponent } from './components/visor/visor.component';
 export class AppComponent {
   nombre: string = '';
 
-  @ViewChild(VisorComponent, {static: true}) visorComponent!: VisorComponent; // Asegúrate de que el tipo de dato sea correcto y usa {static: true}
+  @ViewChild(VisorComponent, {static: true}) visorComponent!: VisorComponent;
 
   async habilitarEdicion() {
     try {
@@ -22,7 +22,7 @@ export class AppComponent {
       const pdfDoc = await PDFDocument.load(pdfBytes);
 
        // Add a blank page to the document
-      const page = pdfDoc.addPage([550, 150]);
+       const page = pdfDoc.getPage(0);
 
       // Obtener el formulario del documento
       const form = pdfDoc.getForm();
@@ -30,7 +30,7 @@ export class AppComponent {
 
       const nameField = form.createTextField('favorite.superhero');
       nameField.setText('One Punch Man');
-      nameField.addToPage(page, { x: 55, y: 80 });
+      nameField.addToPage(page, { x: 120, y: 760 });
 
 
       // Guardar el documento modificado como bytes
