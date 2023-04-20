@@ -12,7 +12,11 @@ export class VisorComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    const pdfPath = 'assets/pdf/prueba.pdf'; 
+    const pdfPath = 'assets/pdf/prueba.pdf';
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(pdfPath);
+  }
+
+  updatePdfUrl(url: string) {
+    this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

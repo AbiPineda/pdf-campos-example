@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { PDFDocument, StandardFonts } from 'pdf-lib';
+import { VisorComponent } from './components/visor/visor.component';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,11 @@ import { PDFDocument, StandardFonts } from 'pdf-lib';
 export class AppComponent {
   nombre: string = '';
 
+  @ViewChild(VisorComponent, {static: true}) visorComponent!: VisorComponent; // Asegúrate de que el tipo de dato sea correcto y usa {static: true}
+
   async habilitarEdicion() {
     try {
-      
+
       // Cargar el archivo PDF desde una URL o un archivo local
       const pdfBytes = await fetch('assets/pdf/prueba.pdf').then(res => res.arrayBuffer());
 
@@ -39,8 +42,8 @@ export class AppComponent {
       // Crear una URL segura para el Blob
       const pdfUrl = URL.createObjectURL(pdfBlob);
 
-      // Abrir una nueva ventana con el PDF modificado
-      window.open(pdfUrl, '_blank');
+     // Llamar al método updatePdfUrl() del componente VisorComponent para actualizar la URL del PDF en el iframe
+     this.visorComponent.updatePdfUrl(pdfUrl);
 
     } catch (error) {
       console.error('Error al habilitar la edición del PDF:', error);
