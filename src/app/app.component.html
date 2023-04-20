@@ -1,3 +1,21 @@
-<app-documents>
-  
-</app-documents>
+<div class="container">
+  <div class="container1">
+    <label for="label1">Nombre:</label>
+    <input type="text" id="label1" name="label1" [(ngModel)]="nombre">
+    <button (click)="habilitarEdicion()">Agregar Cajita</button>
+
+    <label for="label2">Correo Electronico:</label>
+    <input type="text" id="label2" name="label2">
+    <button>Agregar Cajita</button>
+
+    <label for="label3">Fecha:</label>
+    <input type="text" id="label3" name="label3">
+    <button>Agregar Cajita</button>
+  </div>
+
+  <div class="container2">
+    <app-visor></app-visor>
+
+  </div>
+</div>
+

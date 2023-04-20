@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.container1 {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  padding: 3rem;
+}
+
+.container2 {
+  flex: 1;
+}

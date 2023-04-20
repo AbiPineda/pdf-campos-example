@@ -5,16 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { DocumentsComponent } from './components/documents/documents.component';
+import { VisorComponent } from './components/visor/visor.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    DocumentsComponent
+    DocumentsComponent,
+    VisorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    PdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
