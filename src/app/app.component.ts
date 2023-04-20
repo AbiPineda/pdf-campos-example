@@ -28,9 +28,9 @@ export class AppComponent {
       const form = pdfDoc.getForm();
 
 
-      const nameField = form.createTextField('favorite.superhero');
-      nameField.setText('One Punch Man');
-      nameField.addToPage(page, { x: 120, y: 760 });
+      const nameField = form.createTextField('textName');
+      nameField.setText('');
+      nameField.addToPage(page, { x: 120, y: 760, width: 200, height: 15 });
 
 
       // Guardar el documento modificado como bytes
