@@ -49,4 +49,7 @@ export class AppComponent {
       console.error('Error al habilitar la edición del PDF:', error);
     }
   }
+
+
+
 }

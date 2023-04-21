@@ -8,18 +8,23 @@ import { DocumentsComponent } from './components/documents/documents.component';
 import { VisorComponent } from './components/visor/visor.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DragDropComponent } from './components/drag-drop/drag-drop.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     DocumentsComponent,
-    VisorComponent
+    VisorComponent,
+    DragDropComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
