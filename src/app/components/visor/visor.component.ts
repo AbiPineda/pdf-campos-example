@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser'; // Importar desde @angular/platform-browser
 import { PDFDocument } from 'pdf-lib';
-import Konva from 'konva';
-
-
 @Component({
   selector: 'app-visor',
   templateUrl: './visor.component.html',
@@ -17,54 +14,47 @@ export class VisorComponent implements OnInit {
   ngOnInit(): void {
     const pdfPath = 'assets/pdf/prueba.pdf';
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(pdfPath);
+  }
 
-    const stage = new Konva.Stage({
-      container: 'pdfContainer', // ID del contenedor HTML donde se renderizará el lienzo de Konva
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
+  updatePdfUrl(url: string) {
+    this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
 
-    const layer = new Konva.Layer();
-    stage.add(layer);
+  async habilitarEdicion() {
+    try {
 
-    const rect = new Konva.Rect({
-      x: 100, // Posición en el eje x
-      y: 100, // Posición en el eje y
-      width: 100, // Ancho del rectángulo
-      height: 100, // Altura del rectángulo
-      fill: 'red' // Color de relleno del rectángulo
-    });
+      // Cargar el archivo PDF desde una URL o un archivo local
+      const pdfBytes = await fetch('assets/pdf/prueba.pdf').then(res => res.arrayBuffer());
 
-    rect.draggable(true); // Habilitar la funcionalidad de arrastrar del rectángulo
+      // Crear un documento PDF a partir de los bytes cargados
+      const pdfDoc = await PDFDocument.load(pdfBytes);
 
-    layer.add(rect); // Agregar el rectángulo a la capa
+       // Add a blank page to the document
+       const page = pdfDoc.getPage(0);
 
+      // Obtener el formulario del documento
+      const form = pdfDoc.getForm();
 
 
-    // Agregar evento de soltar al contenedor del PDF
-    const pdfContainer = document.getElementById('pdfContainer');
-    if (pdfContainer) { // Verificar si pdfContainer no es null
-      pdfContainer.addEventListener('drop', (event) => {
-      event.preventDefault();
-      const mouseX = event.clientX; // Obtener la posición del mouse en el eje x
-      const mouseY = event.clientY; // Obtener la posición del mouse en el eje y
+      const nameField = form.createTextField('textName');
+      nameField.setText('');
+      nameField.addToPage(page, { x: 120, y: 760, width: 200, height: 15 });
 
-      // Obtener la posición relativa del rectángulo dentro del contenedor del PDF
-      const rectX = rect.x() + stage.x();
-      const rectY = rect.y() + stage.y();
 
-      // Verificar si el rectángulo está dentro del área del PDF
-      if (mouseX > rectX && mouseX < rectX + rect.width() && mouseY > rectY && mouseY < rectY + rect.height()) {
-        // El rectángulo está dentro del área del PDF, realizar acciones necesarias
-        console.log('Rectángulo soltado en el PDF');
-      }
-    });
+      // Guardar el documento modificado como bytes
+      const pdfBytesModificado = await pdfDoc.save();
 
-    pdfContainer.addEventListener('dragover', (event) => {
-      event.preventDefault();
-    });
+      // Crear un objeto Blob a partir de los bytes del PDF modificado
+      const pdfBlob = new Blob([pdfBytesModificado], { type: 'application/pdf' });
+
+      // Crear una URL segura para el Blob
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+
+     // Llamar al método updatePdfUrl() del componente VisorComponent para actualizar la URL del PDF en el iframe
+     this.updatePdfUrl(pdfUrl);
+
+    } catch (error) {
+      console.error('Error al habilitar la edición del PDF:', error);
+    }
   }
 }
-
-}
-

@@ -11,7 +11,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DragDropComponent } from './components/drag-drop/drag-drop.component';
 import { MapearComponent } from './components/mapear/mapear.component';
-import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +27,6 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     PdfViewerModule,
     DragDropModule,
-    HttpClientModule
 
   ],
   providers: [],
