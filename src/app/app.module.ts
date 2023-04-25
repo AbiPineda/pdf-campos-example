@@ -16,6 +16,7 @@ import { VisorPruebaComponent } from './components/visor-prueba/visor-prueba.com
 
 
 import { HttpClientModule } from '@angular/common/http';
+import { KonvaComponent } from './components/konva/konva.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     VisorComponent,
     DragDropComponent,
     MapearComponent,
-    VisorPruebaComponent
+    VisorPruebaComponent,
+    KonvaComponent
   ],
   imports: [
     BrowserModule,
