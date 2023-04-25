@@ -11,6 +11,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DragDropComponent } from './components/drag-drop/drag-drop.component';
 import { MapearComponent } from './components/mapear/mapear.component';
+import { VisorPruebaComponent } from './components/visor-prueba/visor-prueba.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { MapearComponent } from './components/mapear/mapear.component';
     DocumentsComponent,
     VisorComponent,
     DragDropComponent,
-    MapearComponent
+    MapearComponent,
+    VisorPruebaComponent
   ],
   imports: [
     BrowserModule,
