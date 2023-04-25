@@ -13,7 +13,8 @@ export class VisorComponent implements OnInit {
   pdfUrl: any;
   rects: Konva.Rect[] = []; // Lista de rectángulos
   stage!: Konva.Stage; // Referencia al escenario de Konva
-
+  rectX: number = 0;
+  rectY: number = 0;
   constructor(private sanitizer: DomSanitizer) {
   }
 
@@ -21,18 +22,18 @@ export class VisorComponent implements OnInit {
     const rect = new Konva.Rect({
       x: 100, // Posición en el eje x
       y: 100, // Posición en el eje y
-      width: 100, // Ancho del rectángulo
-      height: 100, // Altura del rectángulo
-      fill: 'red', // Color de relleno del rectángulo
+      width: 200, // Ancho del rectángulo
+      height: 20, // Altura del rectángulo
+      fill: '#D2D0D0', // Color de relleno del rectángulo
       visible: true // Establecer visible como true para mostrar el rectángulo
     });
 
     rect.draggable(true); // Habilitar la funcionalidad de arrastrar del rectángulo
 
     rect.on('dragend', (event) => {
-      const rectX = rect.x(); // Obtener la posición x del rectángulo después de soltarlo
-      const rectY = rect.y(); // Obtener la posición y del rectángulo después de soltarlo
-      console.log(`Nuevas coordenadas: x=${rectX}, y=${rectY}`);
+      this.rectX = rect.x(); // Obtener la posición x del rectángulo después de soltarlo
+      this.rectY = rect.y(); // Obtener la posición y del rectángulo después de soltarlo
+      console.log(`Nuevas coordenadas: x=${this.rectX}, y=${this.rectY}`);
     });
 
     this.rects.push(rect); // Agregar el rectángulo a la lista de rectángulos

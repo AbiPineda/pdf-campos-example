@@ -1,6 +1,6 @@
 p {
   font-family: helvetica;
-  font-size: 24px;
+  font-size: 15px;
   text-align: center;
   margin: 25px;
 }
@@ -13,10 +13,37 @@ p {
 }
 
 button {
-  background-color: #008CBA;
+
+  background-color: #008cba;
   border: none;
   color: white;
   padding: 15px 32px;
   text-align: center;
   font-size: 16px;
+}
+
+.btn {
+  margin-left: 10px;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  z-index: 1000;
+}
+.iframe {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#pdfContainer {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
 }
