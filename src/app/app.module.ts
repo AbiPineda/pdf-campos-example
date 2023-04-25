@@ -14,6 +14,7 @@ import { MapearComponent } from './components/mapear/mapear.component';
 import { VisorPruebaComponent } from './components/visor-prueba/visor-prueba.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 
     MapearComponent,
     VisorPruebaComponent,
+    ButtonComponent,
   ],
   imports: [
     BrowserModule,
