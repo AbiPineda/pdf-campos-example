@@ -39,6 +39,26 @@ export class VisorComponent implements OnInit {
     this.rects.push(rect); // Agregar el rectángulo a la lista de rectángulos
     const layer = new Konva.Layer();
     layer.add(rect); // Agregar el rectángulo a la capa de Konva
+
+    //la parte comentareada permite redimencionar el tamaño de los rectangulos
+    
+    // let MAX_WIDTH = 500;
+
+    //   let tr = new Konva.Transformer({
+    //     boundBoxFunc: function (oldBoundBox, newBoundBox) {
+
+    //       if (Math.abs(newBoundBox.width) > MAX_WIDTH) {
+    //         return oldBoundBox;
+    //       }
+
+    //       return newBoundBox;
+    //     },
+    //   });
+    //   tr.rotateEnabled(false);
+
+    //   layer.add(tr);
+    //   tr.nodes([rect]);
+
     this.stage.add(layer); // Agregar la capa al escenario de Konva
   }
 
