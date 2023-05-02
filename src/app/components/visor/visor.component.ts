@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PDFDocument } from 'pdf-lib';
 import Konva from 'konva';
+import { fromEvent } from 'rxjs';
 
 
 @Component({
@@ -15,6 +16,9 @@ export class VisorComponent implements OnInit {
   stage!: Konva.Stage; // Referencia al escenario de Konva
   rectX: number = 0;
   rectY: number = 0;
+
+  @ViewChild('pdfContainer', { static: true }) pdfContainer!: ElementRef;
+
   constructor(private sanitizer: DomSanitizer) {
   }
 
@@ -41,7 +45,7 @@ export class VisorComponent implements OnInit {
     layer.add(rect); // Agregar el rectángulo a la capa de Konva
 
     //la parte comentareada permite redimencionar el tamaño de los rectangulos
-    
+
     // let MAX_WIDTH = 500;
 
     //   let tr = new Konva.Transformer({
@@ -65,6 +69,7 @@ export class VisorComponent implements OnInit {
   ngOnInit(): void {
     const pdfPath = 'assets/pdf/prueba.pdf';
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(pdfPath);
+    this.initializeKonva();
 
     this.stage = new Konva.Stage({
       container: 'pdfContainer', // ID del contenedor HTML donde se renderizará el lienzo de Konva
@@ -76,4 +81,26 @@ export class VisorComponent implements OnInit {
     const layer = new Konva.Layer();
     this.stage.add(layer);
   }
+  ngAfterViewInit() {
+    this.pdfContainer.nativeElement.querySelector('.konvajs-content').id = 'myKonvaContainer';
+  }
+
+  private initializeKonva() {
+    this.stage = new Konva.Stage({
+      container: 'myKonvaContainer',
+      width: this.pdfContainer.nativeElement.offsetWidth,
+      height: this.pdfContainer.nativeElement.offsetHeight
+    });
+    const layer = new Konva.Layer();
+    this.stage.add(layer);
+
+
+     // Redimensionar el canvas de Konva cuando se cambia el tamaño del pdfContainer
+     fromEvent(window, 'resize').subscribe(() => {
+      this.stage.width(this.pdfContainer.nativeElement.offsetWidth);
+      this.stage.height(this.pdfContainer.nativeElement.offsetHeight);
+    });
+
+  }
+
 }
